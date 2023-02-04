@@ -1,5 +1,4 @@
 import { Container } from 'rsuite';
-import Sidebar from './Sidebar';
 import React from 'react';
 
 type Props = {
@@ -8,8 +7,7 @@ type Props = {
 
 function Layout({ children }: Props) {
   return (
-    <Container>
-      <Sidebar />
+    <Container >
       {children}
     </Container>
   );

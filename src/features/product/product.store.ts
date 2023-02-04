@@ -1,12 +1,15 @@
-import { makeAutoObservable } from 'mobx';
+import { makeAutoObservable, reaction, runInAction } from 'mobx';
 import { AxiosError } from 'axios';
 import { RootStore } from 'hooks';
-import { ProductEntity, ProductService } from './product.module';
+import { ProductEntity } from './product.module';
+import ApiClient from 'apiClient';
 
 class ProductStore {
-  api: ProductService;
+  api: ApiClient;
 
   products: ProductEntity[] = [];
+
+  activeProduct?: ProductEntity;
 
   fetchError: AxiosError | null = null;
 
@@ -15,25 +18,38 @@ class ProductStore {
   constructor(private rootStore: RootStore) {
     makeAutoObservable(this);
 
-    this.api = rootStore.api.productService;
+    this.api = rootStore.api;
+
+    this.setActive = this.setActive.bind(this);
+    this.cleanErrors = this.cleanErrors.bind(this);
   }
 
   cleanErrors() {
     this.fetchError = null;
   }
 
+  setActive(productId: string | null): void {
+    const found = this.products.find(({ id }) => id === productId);
+    this.activeProduct = found;
+  }
+
   async fetch() {
     this.cleanErrors();
     this.isFetching = true;
     try {
-      const { products } = await this.api.get();
-      this.products = products.map((product) => new ProductEntity(this, product));
-
+      const { products } = await this.api.productService.get();
+      runInAction(() => {
+        this.products = products.map((product) => new ProductEntity(this, product));
+      })
     } catch (e) {
-      this.fetchError = e as AxiosError;
+      runInAction(() => {
+        this.fetchError = e as AxiosError;
+      })
     }
 
-    this.isFetching = false;
+    runInAction(() => {
+      this.isFetching = false;
+    })
   }
 }
 

@@ -7,34 +7,22 @@ import Konva from 'konva';
 import PrintField from './PrintField';
 
 function ImageContainer() {
-  const { printFieldStore } = useStores();
-  const { printFields } = printFieldStore;
-
-  const temporaryPrintFields = printFields.length ? [printFields[0]] : []
+  const { productStore } = useStores();
+  const imageEntity = productStore.activeProduct?.imageStore.activeImage?.imagePartStore.activePart;
   const stageRef = useRef<Konva.Stage>(null);
+
+  if(!imageEntity) {
+    return null;
+  }
 
   return (
     <DrawingStage stageRef={stageRef}>
-      {
-        temporaryPrintFields.map((printField) => {
-          return (
-            <Fragment key={printField.id}>
-              <URLImage
-                src={printField.src}
-                // x={stageRef.current && img ? (stageRef?.current.width() - img?.width) / 2 : 0}
-                // y={stageRef.current && img ? (stageRef?.current.height() - img?.height) / 2 : 0}
-              />
-
-              <PrintField
-                printField={printField}
-                onChange={(newAttrs) => {
-                  printField.moveTo(newAttrs);
-                }}
-              />
-            </Fragment>
-          )
-        })
-      }
+      <PrintField
+        grid={imageEntity.grid}
+        onChange={(newAttrs) => {
+          imageEntity.grid.moveTo(newAttrs);
+        }}
+      />
     </DrawingStage>
   );
 }

@@ -1,12 +1,12 @@
 import React from 'react';
 import { observer } from 'mobx-react-lite';
+import { PrintFieldPointEntity } from '../../features/print-field/print-field.module';
 import URLImage from './URLImage';
 import { Group } from 'react-konva';
 import { KonvaEventObject } from 'konva/lib/Node';
-import { ImagePartPointEntity } from 'features/image-part/image-part.module';
 
 type Props = {
-  pointEntity: ImagePartPointEntity,
+  pointEntity: PrintFieldPointEntity,
 }
 
 const POINT_SVG_SIZE = 10;
@@ -17,10 +17,10 @@ function Point({ pointEntity }: Props) {
     <Group
       id={pointEntity.id}
       className={POINT_CLASSNAME}
-      x={pointEntity.x}
-      y={pointEntity.y}
-      relativeX={pointEntity.x}
-      relativeY={pointEntity.y}
+      x={pointEntity.offsetX}
+      y={pointEntity.offsetY}
+      relativeX={pointEntity.offsetX}
+      relativeY={pointEntity.offsetY}
       offsetX={POINT_SVG_SIZE / 2}
       offsetY={POINT_SVG_SIZE / 2}
       draggable

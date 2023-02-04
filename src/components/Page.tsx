@@ -1,6 +1,7 @@
-import { Container, Content } from 'rsuite';
+import { Content } from 'rsuite';
 import React from 'react';
 import Header from './Header';
+import './page.less'
 
 type Props = {
   children: JSX.Element | JSX.Element[],
@@ -9,8 +10,8 @@ type Props = {
 
 function Page({ children, title = '' }: Props) {
   return (
-    <Container>
-      <Header title={title} />
+    <Content>
+      <Header title={title}/>
       <Content style={{
         padding: 50,
         display: 'flex',
@@ -18,7 +19,7 @@ function Page({ children, title = '' }: Props) {
       }}>
         {children}
       </Content>
-    </Container>
+    </Content>
   );
 }
 

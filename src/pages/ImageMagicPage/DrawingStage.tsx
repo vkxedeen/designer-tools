@@ -6,20 +6,22 @@ interface Props {
   stageRef: any;
 }
 
-const STAGE_WIDTH = 600;
-const STAGE_HEIGHT = 800;
+const STAGE_WIDTH = 850;
+const STAGE_HEIGHT = 850;
 
 function DrawingStage({ children, stageRef }: Props) {
   return (
-    <Stage
-      ref={stageRef}
-      width={STAGE_WIDTH}
-      height={STAGE_HEIGHT}
-    >
-      <Layer>
-        {children}
-      </Layer>
-    </Stage>
+    <div style={{ position: 'absolute' }}>
+      <Stage
+        ref={stageRef}
+        width={STAGE_WIDTH}
+        height={STAGE_HEIGHT}
+      >
+        <Layer>
+          {children}
+        </Layer>
+      </Stage>
+    </div>
   );
 }
 

@@ -3,12 +3,12 @@ import { Rect, Transformer } from 'react-konva/lib/ReactKonvaCore';
 import Konva from 'konva';
 import { observer } from 'mobx-react-lite';
 import { KonvaEventObject } from 'konva/lib/Node';
+import { PrintFieldEntity, UpdatePrintFieldProps } from 'features/print-field/print-field.module';
 import { getRotated, getScaled, getSquareCenter } from 'helpers/geometry';
 import Point, { POINT_CLASSNAME } from './Point';
-import { GridEntity, UpdatePrintFieldProps } from 'features/image-part/image-part.module';
 
 interface Props {
-  grid: GridEntity,
+  printField: PrintFieldEntity,
   onChange: (props: UpdatePrintFieldProps) => void,
 }
 
@@ -18,8 +18,8 @@ type Position = {
   angle: number,
 }
 
-function PrintField({ grid, onChange }: Props) {
-  const { points } = grid;
+function PrintField({ printField, onChange }: Props) {
+  const { points } = printField;
 
   const shapeRef = React.useRef<Konva.Rect>(null);
   const trRef = React.useRef<Konva.Transformer>(null);
@@ -122,12 +122,12 @@ function PrintField({ grid, onChange }: Props) {
     <>
       <Rect
         ref={shapeRef}
-        id={grid.id}
-        x={grid.x}
-        y={grid.y}
-        rotation={grid.rotation}
-        width={grid.size}
-        height={grid.size}
+        id={printField.id}
+        x={printField.x}
+        y={printField.y}
+        rotation={printField.rotation}
+        width={printField.size}
+        height={printField.size}
         draggable
         stroke="lightgrey"
         strokeWidth={0.5}

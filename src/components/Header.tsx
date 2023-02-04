@@ -7,7 +7,7 @@ type Props = {
 
 function Header({ title = '' }: Props) {
   return (
-    <HeaderComponent>
+    <HeaderComponent className="page_header">
       <h2>{title}</h2>
     </HeaderComponent>
   );

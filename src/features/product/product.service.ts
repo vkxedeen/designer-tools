@@ -6,11 +6,12 @@ class ProductService {
   }
 
   async get(): Promise<ProductGetResponse> {
-    return this.api.get(`/products/`);
+    const { data } = await this.api.get(`/products/`);
+    return data;
   }
 
   async create(name: string): Promise<ProductPostResponse> {
-    const {data} = await this.api.post('/products/', {name});
+    const { data } = await this.api.post('/products/', { name });
     return data;
   }
 
@@ -19,7 +20,7 @@ class ProductService {
   }
 
   async update(id: string, name: string): Promise<void> {
-    await this.api.patch(`/products/${id}/`, {name});
+    await this.api.patch(`/products/${id}/`, { name });
   }
 }
 
