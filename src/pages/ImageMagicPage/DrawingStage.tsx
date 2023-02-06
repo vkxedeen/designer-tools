@@ -1,13 +1,14 @@
 import React from 'react';
 import { Stage, Layer } from 'react-konva';
+import { DRAWING_STAGE_SIZE } from '../../constants';
 
 interface Props {
   children: JSX.Element | JSX.Element[];
   stageRef: any;
 }
 
-const STAGE_WIDTH = 850;
-const STAGE_HEIGHT = 850;
+const STAGE_WIDTH = DRAWING_STAGE_SIZE;
+const STAGE_HEIGHT = DRAWING_STAGE_SIZE;
 
 function DrawingStage({ children, stageRef }: Props) {
   return (

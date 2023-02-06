@@ -1,9 +1,18 @@
 import ImagePartService from './image-part.service';
-import { ImagePartResponseItem, ImagePartGetResponse, ImagePartPostResponse, PointData, GridData, UpdatePrintFieldProps } from './image-part.interfaces';
 import ImagePartStore from './image-part.store';
 import ImagePartEntity from './image-part.entity';
 import GridEntity from './grid.entity';
 import ImagePartPointEntity from './image-part-point.entity';
+
+import {
+  ImagePartResponseItem,
+  ImagePartGetResponse,
+  ImagePartPostResponse,
+  ImagePartPatchRequest,
+  PointData,
+  GridData,
+  UpdatePrintFieldProps,
+} from './image-part.interfaces';
 
 export {
   ImagePartService,
@@ -20,4 +29,5 @@ export type {
   PointData,
   GridData,
   UpdatePrintFieldProps,
+  ImagePartPatchRequest,
 }

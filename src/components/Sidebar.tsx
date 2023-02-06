@@ -23,7 +23,7 @@ function Sidebar({
     <SidebarComponent
       className="sidebar_container"
       style={{ display: 'flex', flexDirection: 'column', position: 'fixed', zIndex: 1, background: 'white', right: 0, height: '100%', boxShadow: '0 0 10px rgba(0,0,0,0.5)', paddingLeft: '40px' }}
-      width={isExpanded ? 720 : 38}
+      width={isExpanded ? 760 : 38}
       collapsible
     >
       <Sidenav.Header>

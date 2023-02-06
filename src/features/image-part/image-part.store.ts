@@ -29,8 +29,7 @@ class ImagePartStore {
   }
 
   setActive(partId: string | null): void {
-    const found = this.list.find(({id}) => id === partId);
-    this.activePart = found;
+    this.activePart = this.list.find(({ id }) => id === partId);
   }
 
   async fetch() {
@@ -58,9 +57,7 @@ class ImagePartStore {
     try {
       const { product_image_parts } = await this.api.imagePartService.getByImageId(imageId);
       runInAction(() => {
-        console.log(this.list)
         this.list = product_image_parts.map((imagePart) => new ImagePartEntity(this, imagePart));
-        console.log(this.list)
 
       });
     } catch (e) {

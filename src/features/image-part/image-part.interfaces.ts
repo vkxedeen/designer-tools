@@ -23,8 +23,11 @@ export interface ImagePartResponseItem {
   scale: number,
 }
 
+export interface ImagePartPatchRequest extends ImagePartResponseItem {
+  product_design_id?: string,
+}
+
 export interface GridData {
-  id: string,
   points?:  number[],
   x: number,
   y: number,
@@ -42,6 +45,7 @@ export interface UpdatePrintFieldProps {
   x?: number,
   y?: number,
   size?: number,
+  scale?: number,
   rotation?: number,
   points: {
     id: string,

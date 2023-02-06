@@ -4,6 +4,7 @@ import { ProductService } from './features/product/product.module';
 import { DesignService } from './features/design/design.module';
 import { ImageService } from './features/image/image.module';
 import { ImagePartService } from './features/image-part/image-part.module';
+import { PrintFieldDesignService } from './features/print-field-design/print-field-design.module';
 
 class ApiClient {
   api: AxiosInstance;
@@ -18,9 +19,11 @@ class ApiClient {
 
   imagePartService: ImagePartService;
 
+  printFieldDesignService: PrintFieldDesignService
+
   constructor() {
     this.api = axios.create({
-      baseURL: '/api',
+      baseURL: 'http://84.252.138.33:8000',
       timeout: 10000,
     } as AxiosRequestConfig);
 
@@ -33,6 +36,8 @@ class ApiClient {
     this.imageService = new ImageService(this.api);
 
     this.imagePartService = new ImagePartService(this.api);
+
+    this.printFieldDesignService = new PrintFieldDesignService(this.api);
   }
 }
 

@@ -1,5 +1,5 @@
 import { AxiosInstance } from 'axios';
-import { ImagePartGetResponse, ImagePartPostResponse } from './image-part.module';
+import { ImagePartGetResponse, ImagePartPatchRequest, ImagePartPostResponse } from './image-part.module';
 
 class ImagePartService {
   constructor(private api: AxiosInstance) {
@@ -25,8 +25,8 @@ class ImagePartService {
     await this.api.delete(`/product-image-parts/${id}/`);
   }
 
-  async update(id: string, name: string): Promise<void> {
-    await this.api.patch(`/product-image-parts/${id}/`, { name });
+  async update({ id, ...updateData }: ImagePartPatchRequest): Promise<void> {
+    await this.api.patch(`/product-image-parts/${id}/`, updateData);
   }
 }
 

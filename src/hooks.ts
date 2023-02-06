@@ -6,6 +6,8 @@ import {
 import { PrintFieldStore } from './features/print-field/print-field.module';
 import ApiClient from './apiClient';
 import { ProductStore } from './features/product/product.module';
+import { DesignStore } from './features/design/design.module';
+import { PrintFieldDesignStore } from './features/print-field-design/print-field-design.module';
 
 configure({ enforceActions: 'observed' });
 
@@ -16,6 +18,10 @@ export class RootStore {
 
   productStore!: ProductStore;
 
+  designStore!: DesignStore;
+
+  printFieldDesignStore!: PrintFieldDesignStore;
+
   constructor() {
     this.init();
     makeAutoObservable(this);
@@ -25,6 +31,8 @@ export class RootStore {
     this.api = new ApiClient();
     this.printFieldStore = new PrintFieldStore(this);
     this.productStore = new ProductStore(this);
+    this.designStore = new DesignStore(this);
+    this.printFieldDesignStore = new PrintFieldDesignStore(this);
   }
 }
 

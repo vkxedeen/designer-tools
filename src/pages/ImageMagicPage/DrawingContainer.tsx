@@ -1,14 +1,12 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useStores } from 'hooks';
 import { observer } from 'mobx-react-lite';
-import { Content } from 'rsuite';
 
 import './drawing_container.styles.less';
-
-const MAX_IMG_SIZE = 840;
+import { IMAGE_MAX_SIZE } from '../../constants';
 
 function getScale(size: number): number {
-  return MAX_IMG_SIZE >= size ? 1 : MAX_IMG_SIZE / size;
+  return IMAGE_MAX_SIZE >= size ? 1 : IMAGE_MAX_SIZE / size;
 }
 
 function DrawingContainer() {
@@ -34,14 +32,15 @@ function DrawingContainer() {
   }, [imageEntity]);
 
   return (
-    <Content className="image_layout">
+    <div className="image_layout">
       {imageEntity && imageLoaded && (
         <img
           src={`${import.meta.env.VITE_APP_IMAGE_GENERATOR_URL}${imageEntity?.maskKey}`}
           width={`${imageSize}px`}
+          alt={imageEntity?.name}
         />
       )}
-    </Content>
+    </div>
   );
 }
 

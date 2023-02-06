@@ -6,6 +6,7 @@ import { KonvaEventObject } from 'konva/lib/Node';
 import { getRotated, getScaled, getSquareCenter } from 'helpers/geometry';
 import Point, { POINT_CLASSNAME } from './Point';
 import { GridEntity, UpdatePrintFieldProps } from 'features/image-part/image-part.module';
+import { IMAGE_MAX_SIZE } from '../../constants';
 
 interface Props {
   grid: GridEntity,
@@ -122,14 +123,14 @@ function PrintField({ grid, onChange }: Props) {
     <>
       <Rect
         ref={shapeRef}
-        id={grid.id}
+        id={'rect'}
         x={grid.x}
         y={grid.y}
         rotation={grid.rotation}
-        width={grid.size}
-        height={grid.size}
+        width={IMAGE_MAX_SIZE}
+        height={IMAGE_MAX_SIZE}
         draggable
-        stroke="lightgrey"
+        stroke="red"
         strokeWidth={0.5}
         onClick={onSelect}
         onMouseEnter={() => setCursorType('move')}
@@ -163,12 +164,15 @@ function PrintField({ grid, onChange }: Props) {
 
         onTransformEnd={() => {
           const scale = shape?.scaleY() || 1;
-          shape?.scaleX(1);
-          shape?.scaleY(1);
+          // shape?.scaleX(1);
+          // shape?.scaleY(1);
 
           const points = getPointElements();
 
           onChange({
+            x: shape?.x(),
+            y: shape?.y(),
+            scale,
             rotation: shape?.rotation(),
             size: shape && shape?.height() * scale || shape?.height(),
             points: mapPointsData(points),
@@ -196,7 +200,7 @@ function PrintField({ grid, onChange }: Props) {
         }}
       />
 
-      {points && points.map((point) => (
+      {points.map((point) => (
         <Point
           key={point.id}
           pointEntity={point}
@@ -205,7 +209,7 @@ function PrintField({ grid, onChange }: Props) {
 
       {selectedId && (
         <Transformer
-          borderEnabled={false}
+          borderEnabled
           anchorStroke="lightgrey"
           enabledAnchors={['bottom-right']}
           ref={trRef}

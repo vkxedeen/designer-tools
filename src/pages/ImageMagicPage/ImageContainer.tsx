@@ -1,6 +1,5 @@
-import React, { Fragment, useRef } from 'react';
+import React, { useRef } from 'react';
 import { useStores } from 'hooks';
-import URLImage from './URLImage';
 import { observer } from 'mobx-react-lite';
 import DrawingStage from './DrawingStage';
 import Konva from 'konva';

@@ -8,7 +8,8 @@ interface Props {
     value: string,
   }[];
   loading?: boolean,
-  onChange: (value: string | null) => void,
+  onChange?: (value: string | null) => void,
+  value?: string,
 }
 
 function Selector({
@@ -16,14 +17,17 @@ function Selector({
   list,
   loading,
   onChange,
+  value
 }: Props) {
   return (
     <SelectPicker
+      value={value}
       label={label}
       data={list}
       loading={loading}
       onChange={onChange}
-      style={{ width: '100%', margin: '20px' }}
+      style={{ width: '100%', margin: '20px 0'}}
+      size="lg"
     />
   );
 }

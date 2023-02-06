@@ -1,12 +1,15 @@
 import { makeAutoObservable, runInAction } from 'mobx';
 import { AxiosError } from 'axios';
 import { RootStore } from 'hooks';
-import { PrintFieldEntity, PrintFieldService } from './print-field.module';
+import {
+  PrintFieldDesignEntity,
+  PrintFieldDesignService,
+} from './print-field-design.module';
 
-class PrintFieldStore {
-  api: PrintFieldService;
+class PrintFieldDesignStore {
+  api: PrintFieldDesignService;
 
-  printFields: PrintFieldEntity[] = [];
+  printFieldDesigns: PrintFieldDesignEntity[] = [];
 
   fetchError: AxiosError | null = null;
 
@@ -18,7 +21,7 @@ class PrintFieldStore {
 
   constructor(private rootStore: RootStore) {
     makeAutoObservable(this);
-    this.api = rootStore.api.printFieldService;
+    this.api = rootStore.api.printFieldDesignService;
   }
 
   cleanErrors() {
@@ -30,9 +33,9 @@ class PrintFieldStore {
     this.cleanErrors();
     this.isFetching = true;
     try {
-      const { print_fields } = await this.api.get();
+      const { print_field_designs } = await this.api.get();
       runInAction(() => {
-        this.printFields = print_fields.map((printField) => new PrintFieldEntity(this, printField));
+        this.printFieldDesigns = print_field_designs.map((printFieldDesign) => new PrintFieldDesignEntity(this, printFieldDesign));
       });
     } catch (e) {
       runInAction(() => {
@@ -45,15 +48,20 @@ class PrintFieldStore {
     });
   }
 
-  async create() {
+  async postLink({ designId, printFieldId }: { designId: string, printFieldId: string }) {
     this.cleanErrors();
     this.isCreation = true;
     try {
-      const { print_field } = await this.api.create('new print_field');
+      const { print_field_design } = await this.api.create({
+        design_id: designId,
+        print_field_id: printFieldId,
+      });
+
       runInAction(() => {
-        this.printFields = [...this.printFields, new PrintFieldEntity(this, {
-          id: print_field.id,
-          name: print_field.name,
+        this.printFieldDesigns = [...this.printFieldDesigns, new PrintFieldDesignEntity(this, {
+          id: print_field_design.id,
+          design_id: print_field_design.design_id,
+          print_field_id: print_field_design.print_field_id,
         })];
       });
     } catch (e) {
@@ -61,10 +69,11 @@ class PrintFieldStore {
         this.createError = e as AxiosError;
       });
     }
+
     runInAction(() => {
       this.isCreation = false;
     });
   }
 }
 
-export default PrintFieldStore;
+export default PrintFieldDesignStore;

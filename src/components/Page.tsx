@@ -15,7 +15,6 @@ function Page({ children, title = '' }: Props) {
       <Content style={{
         padding: 50,
         display: 'flex',
-        justifyContent: 'space-around',
       }}>
         {children}
       </Content>

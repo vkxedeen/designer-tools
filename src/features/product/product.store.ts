@@ -1,4 +1,4 @@
-import { makeAutoObservable, reaction, runInAction } from 'mobx';
+import { makeAutoObservable, runInAction } from 'mobx';
 import { AxiosError } from 'axios';
 import { RootStore } from 'hooks';
 import { ProductEntity } from './product.module';
@@ -29,8 +29,7 @@ class ProductStore {
   }
 
   setActive(productId: string | null): void {
-    const found = this.products.find(({ id }) => id === productId);
-    this.activeProduct = found;
+    this.activeProduct = this.products.find(({ id }) => id === productId);
   }
 
   async fetch() {
